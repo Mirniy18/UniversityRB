@@ -34,5 +34,5 @@ remove_dups [42, 1, 2, 1, -1, 0, 451]
 
 loop do
   print "Enter numbers separated by ',': "
-  remove_dups(gets.chomp.split(',').map { |x| Integer(x) })
+  remove_dups(gets.chomp.split(',').map(&:to_i))
 end
