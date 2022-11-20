@@ -5,7 +5,7 @@ items = %w[Rock Paper Scissors]
 loop do
   print 'Enter your choice (0 - rock, 1 - paper, 2 - scissors, 3 - exit): '
 
-  user = Integer($stdin.gets.chomp, exception: false)
+  user = Integer(gets.chomp, exception: false)
 
   next if user.nil? || !user.between?(0, 3)
 

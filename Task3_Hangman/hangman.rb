@@ -5,9 +5,7 @@ LIVES = 6
 def play(secret)
   lives = LIVES
 
-  secret_len = secret.length
-
-  word = '_' * secret_len
+  word = '_' * secret.length
 
   loop do
     print "Lives: #{'o' * lives}#{' ' * (LIVES - lives)}, Word: #{word}, Guess: "
@@ -49,7 +47,7 @@ end
 
 loop do
   begin
-    secret = File.read('Hangman/words.txt').split.sample
+    secret = File.read('Task3_Hangman/words.txt').split.sample
   rescue Errno::ENOENT
     puts 'Dictionary not found'
     break

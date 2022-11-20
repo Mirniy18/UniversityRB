@@ -38,7 +38,7 @@ def tests(f)
   puts 'Passed'
 end
 
-def benches()
+def benches
   times = 100_000
 
   s = '(_[__{___}__]_)(_[__{___}__]_)(_[__{___}__]_)(_[__{___}__]_)(_[__{___}__]_)'
