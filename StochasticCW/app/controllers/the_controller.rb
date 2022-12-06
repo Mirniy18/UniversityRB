@@ -5,7 +5,7 @@ class TheController < ApplicationController
 
   def charts
     srand
-    seed = Random::DEFAULT.seed
+    seed = Random::DEFAULT.seed.to_s
 
     raw = TheHelper.calc_chart_data(params[:n].to_i, params[:a].to_f..params[:b].to_f, params[:v].to_f,
                                     params.fetch(:w, 0.1).to_f, params.fetch(:methods, 0b111).to_i)
