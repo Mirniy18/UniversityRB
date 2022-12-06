@@ -1,0 +1,1 @@
+<%= CSV.generate_line @data.map { |d| d[:name] } %><%- @data.map { |d| d[:data].to_a }.transpose.each { |row| -%><%= CSV.generate_line row -%><%- } -%>

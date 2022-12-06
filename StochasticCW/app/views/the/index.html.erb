@@ -1,0 +1,129 @@
+<div class="container">
+  <div class="box">
+    <div style="display: inline-block; height: 36px; font-size: 20pt">
+      <b>Student's t-distribution</b> modeling
+    </div>
+
+    <div style="display: inline-block; float: right">
+      <a class="waves-effect waves-light btn blue accent-3 modal-trigger" href="#modal-help">Help</a>
+      <a class="waves-effect waves-light btn blue accent-3 modal-trigger" href="#modal-theory">Theory</a>
+      <a class="waves-effect waves-light btn blue accent-3 modal-trigger" href="#modal-about">About me</a>
+    </div>
+  </div>
+  <div class="box">
+    <div class="center">
+      <label for="n">$N$ =</label><input type="number" id="n" name="n" value="100000" min="0"><br>
+      <hr>
+      <label for="v">$\nu$ =</label><input type="number" id="v" name="v" value="2" min="0"><br>
+      <span style="white-space: nowrap">
+        <input type="number" id="a" name="a" value="-5" style="width: 7ch !important;"><label>
+        $\le x\le$</label>
+        <input type="number" id="b" name="b" value="5" style="width: 7ch !important;"><br>
+      </span>
+      <hr>
+      <label for="w">$w$ =</label><input type="number" id="w" name="w" value="0.1" min="0">
+    </div>
+  </div>
+  <div class="box">
+    <p><label>
+      <input type="checkbox" class="filled-in" checked="checked" id="checkbox-inv"/>
+      <span>Inverse transform</span>
+    </label></p>
+    <p><label>
+      <input type="checkbox" class="filled-in" checked="checked" id="checkbox-neu"/>
+      <span>Neumann</span>
+    </label></p>
+    <p><label>
+      <input type="checkbox" class="filled-in" checked="checked" id="checkbox-met"/>
+      <span>Metropolis</span>
+    </label></p>
+    <a class="waves-effect waves-light btn green accent-4" id="btn-start">Start</a>
+    <a class="waves-effect waves-light btn blue accent-4 disabled" id="btn-dl">Download CSV</a>
+  </div>
+  <div style="height: 4px; margin-bottom: 1rem">
+    <div class="progress darken-3 blue hide" id="progress-bar">
+      <div class="indeterminate lighten3 blue"></div>
+    </div>
+  </div>
+  <div class="box hide" id="box-table">
+    <table id="table-mean-variance"></table>
+  </div>
+  <div class="box hide" id="charts">
+    <div class="center switch" style="margin-bottom: 1rem">
+      <label>
+        Alternative chart:
+        <input type="checkbox" id="chart-type">
+        <span class="lever"></span>
+      </label>
+    </div>
+    <div class="center">
+      <div style="width: 470px; min-width: 128px; max-width: 100%; display: inline-block; resize: horizontal; overflow: auto">
+        <%= column_chart nil %>
+        <%= line_chart nil, html: '<div class="hide" id="%{id}" style="height: %{height};">%{loading}</div>' %>
+      </div>
+      <div class="center" style="display: inline-block">
+        PDF:<br>
+        <%= image_tag "Student_t_pdf.svg" %>
+      </div>
+    </div>
+  </div>
+  <div id="modal-help" class="modal">
+    <div class="modal-content">
+      <h4>Help</h4>
+      <p>Для моделювання розподілу треба ввести:</p>
+      <ul class="browser-default">
+        <li>кількість значень $N$,</li>
+        <li>параметр $\nu>0$,</li>
+        <li>інтервал, в якому будуть генеруватися значення,</li>
+        <li>параметр групування значень для графіку $w>0$ (0.1 є достатньо низьким для якісних графіків).</li>
+      </ul>
+      <p>Після чого можна обрати методи генерації та натиснути кнопку Start.</p>
+      <p>По завершенню обчислення можна переглянути результати у різних формах, обрати тип графіку та завантажити дані
+        як CSV.</p>
+      <br>
+      <p>Обчислення зворотної функції розподілу (ICDF/quantile) для загального випадку є складним, тому метод зворотної
+        функції доступний тільки при $\nu\in\{1;2;4\}$.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#modal-help" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+  </div>
+  <div id="modal-theory" class="modal">
+    <div class="modal-content">
+      <h4>Student's t-distribution</h4>
+      <p>Student's t-distribution (t-distribution) is any member of a family of continuous probability distributions
+        that arise when estimating the mean of a normally distributed population in situations where the sample size is
+        small and the population's standard deviation is unknown. It was developed by English statistician William Sealy
+        Gosset under the pseudonym "Student".</p>
+      <p>$\nu>0,\nu\in\R$ degrees of freedom</p>
+      <p>$x\in(-\infty;\ \infty)$</p>
+      <div class="center">
+        Probability density function:
+        <div><%= image_tag "t_pdf.svg" %></div>
+        <div><%= image_tag "Student_t_pdf.svg" %></div>
+        Cumulative distribution function:
+        <div><%= image_tag "t_cdf.svg" %></div>
+        <div><%= image_tag "Student_t_cdf.svg" %></div>
+      </div>
+      <span class="right">Credits: <a href="https://en.wikipedia.org/wiki/Student%27s_t-distribution">Wikipedia</a>.</span>
+    </div>
+    <div class="modal-footer">
+      <a href="#modal-theory" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+  </div>
+  <div id="modal-about" class="modal">
+    <div class="modal-content">
+      <h4>About me</h4>
+      <p>Developed by Stas Dudnyk, a student at V. N. Karazin Kharkiv National University.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#modal-about" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        M.Modal.init(document.querySelectorAll('.modal'), '');
+    });
+</script>

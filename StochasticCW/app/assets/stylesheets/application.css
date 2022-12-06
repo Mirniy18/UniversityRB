@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+    background-color: #f2f2f2;
+}
+
+div.box {
+    background-color: #dcdcdc;
+    /*display: block;*/
+    margin: 1em 0 0 0;
+    padding: 1em;
+}
+
+div.box label {
+    color: black;
+    font-size: inherit;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+input {
+    width: auto !important;
+}
+
+div.progress {
+    margin: 0 0 1rem 0;
+}
