@@ -1,4 +1,4 @@
-module TheHelper
+module AppHelper
   class StudentT
     attr_reader :v
 
@@ -110,7 +110,7 @@ module TheHelper
   # @param [Integer] n
   # @param [Integer] burn_in
   def self.metropolis_with_burn_in(x0, interval, distribution, n = 1, burn_in = 1_000)
-    TheHelper.metropolis(x0, interval, distribution, n + burn_in)[burn_in..]
+    AppHelper.metropolis(x0, interval, distribution, n + burn_in)[burn_in..]
   end
 
   def self.mean(sum, n)
@@ -143,13 +143,13 @@ module TheHelper
   def self.calc_chart_data(n, interval, v, w, methods)
     raise if n <= 0 || v <= 0 || w <= 0
 
-    d = TheHelper::StudentT.new v
+    d = AppHelper::StudentT.new v
 
     raw = []
 
-    raw << { name: 'Inverse', data: TheHelper.inverse(interval, d, n) } unless methods & 1 == 0
-    raw << { name: 'Neumann', data: TheHelper.neumann(interval, d, n) } unless methods & 2 == 0
-    raw << { name: 'Metropolis', data: TheHelper.metropolis_with_burn_in(0.0, interval, d, n) } unless methods & 4 == 0
+    raw << { name: 'Inverse', data: AppHelper.inverse(interval, d, n) } unless methods & 1 == 0
+    raw << { name: 'Neumann', data: AppHelper.neumann(interval, d, n) } unless methods & 2 == 0
+    raw << { name: 'Metropolis', data: AppHelper.metropolis_with_burn_in(0.0, interval, d, n) } unless methods & 4 == 0
 
     raw
   end
